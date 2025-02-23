@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class ProductDao {
-    private static final String URL = "jdbc:mysql:localhost/3306";
+    private static final String URL = "jdbc:mysql://localhost:3306/estoque";
     private static final String USER = "root"; //inserir credenciais reais
     private static final String PASS = ""; 
 
@@ -28,11 +28,10 @@ public class ProductDao {
             stmt.setInt(3, product.getQuantity());
 
             stmt.executeUpdate();
-            System.out.println("Produto inserido com SUCESSO!");
+            System.out.println("Produto inserido com SUCESSO!\n");
         }catch(SQLException e){
             e.printStackTrace(); //imprimir a excessão
         }
-
     }
 
     //Listar todos os produtos
