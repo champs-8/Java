@@ -1,3 +1,8 @@
+/**
+ * 
+ * @author fabio
+ */
+
 package model;
 
 public class Produto {
@@ -44,9 +49,9 @@ public class Produto {
         this.quantity = quantity;
     }
 
-    // @Override
+    @Override
     //metodo para mostrar infoProdutos
-    public String infoProdString () {
-        return String.format("ID: %-4d - Nome: %-20s - Preco: - %-8.2f - Quantidade: %-5d", id, name, price, quantity);
+    public String toString () {
+        return String.format("ID: %-4d  Nome: %-20s  Preco: %-8.2f  Quantidade: %-5d", id, name, price, quantity);
     }
 }
