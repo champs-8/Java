@@ -76,9 +76,9 @@ public class ProductDao {
 
             int rowsAffected = stmt.executeUpdate();
             if(rowsAffected > 0 ) {
-                System.out.println("Produto atualizado com SUCESSO!");
+                System.out.println("\nProduto atualizado com SUCESSO!");
             }else{
-                System.out.println("Produto não encontrado");
+                System.out.println("\nProduto não encontrado");
             }
 
         }catch (SQLException e){
@@ -104,6 +104,26 @@ public class ProductDao {
         }catch( SQLException e){
             e.printStackTrace();    
         }
+    }
+    public Produto buscarProdPeloID(int id) { //servirá para retornar apenas um item pelo ID
+        String sql = "SELECT * FROM produto WHERE id = ?";
+        try (Connection conn = connect();
+            PreparedStatement stmt = conn.prepareStatement(sql)){ // faz a conexão
+            
+            stmt.setInt(1, id); //parametriza o id
+            ResultSet result = stmt.executeQuery(); //executa query quando se é select
+
+            if (result.next()) { //se encontrou o produto
+                return new Produto(
+                    result.getInt("id"),
+                    result.getString("name"),
+                    result.getDouble("price"),
+                    result.getInt("quantity")
+                ); 
+            };
+        } catch (Exception e) {
+            e.printStackTrace();
+        } return null; //Caso não encontrar nada
     }
 }
 

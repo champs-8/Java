@@ -18,7 +18,7 @@ public class Usuario {
         sc.nextLine(); //limpar buffer do menu
 
         if (opcao == 5) {
-            System.out.println("ENCERRANDO PROGRAMA...\n\n");
+            System.out.println("\nENCERRANDO PROGRAMA...\n");
         }else{
             while (opcao != 5) {
                 switch (opcao) {
@@ -83,11 +83,36 @@ public class Usuario {
     public static void atualizarProduto(Scanner sc, ProductDao productDao){ //metodo para opção 3
         try {
             System.out.println("\n == ATUALIZAR PRODUTO == \n");
-            System.out.println("Qual o ID do produto que quer remover? "); //coletar o numero do ID
-            listarProdutos(productDao); //chama o metodo para escolher o produto.
+            listarProdutos(productDao); //chama o metodo para escolher o produto. lista todos disponiveis
+            System.out.printf("\nQual o ID do produto que quer atualizar? "); //coletar o numero do ID
             int escolha = sc.nextInt();
+            sc.nextLine(); //consumir buffer
 
-            
+            Produto produto = productDao.buscarProdPeloID(escolha); //chamar o metodo pelo ID
+            if (produto != null) {
+                System.out.println("\n-- Produto encontrado --\n");
+                System.out.println(produto);
+
+                System.out.printf("Nome Produto - [%s]: ", produto.getName()); //vai inputar os dados a serem alterados
+                String novoNome = sc.nextLine(); //vai dar a opção de atualizar com o nome atual
+
+                if (novoNome.isEmpty()) novoNome = produto.getName(); // se nao alterar nada, vai permanecer o mesmo
+
+
+                //atualizando o objeto
+                produto.setName(novoNome); //configurado nome
+
+                try {
+                    productDao.atualizarProduto(produto); //atualizando o banco de dados com o objeto
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }else{
+                System.err.println("\n\n -- Produto não encontrado --");
+                atualizarProduto(sc, productDao);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
