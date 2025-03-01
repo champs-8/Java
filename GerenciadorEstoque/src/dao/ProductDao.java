@@ -45,8 +45,8 @@ public class ProductDao {
         String sql = "SELECT * FROM produto"; //seleciona todos os produtos
 
         try (Connection conn = connect(); //faz a conexão
-            Statement stmt = conn.createStatement();
-            ResultSet result = stmt.executeQuery(sql)){
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet result = stmt.executeQuery()){
 
             while(result.next()) {
                 Produto product = new Produto(
