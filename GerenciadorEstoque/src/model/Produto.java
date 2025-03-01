@@ -52,6 +52,6 @@ public class Produto {
     @Override
     //metodo para mostrar infoProdutos
     public String toString () {
-        return String.format("ID: %-4d  Nome: %-30s  Preco: %-8.2f  Quantidade: %-5d", id, name, price, quantity);
+        return String.format("ID: %-4d  Nome: %-40s  Preco: %-8.2f  Quantidade: %-5d", id, name, price, quantity);
     }
 }

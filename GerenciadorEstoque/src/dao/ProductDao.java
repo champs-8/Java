@@ -97,9 +97,9 @@ public class ProductDao {
 
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0 ) {
-                System.out.println("Produto removido com SUCESSO!");
+                System.out.println("\nProduto removido com SUCESSO!");
             }else{
-                System.out.println("Prduto não encontrado.");
+                System.out.println("Produto não encontrado.");
             }
         }catch( SQLException e){
             e.printStackTrace();    
