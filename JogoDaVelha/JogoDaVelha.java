@@ -27,13 +27,20 @@ public class JogoDaVelha { //variaveis
             if (jogo.fazerJogada(linha, coluna)){ //se for retornado true
                 if(jogo.verificarVitoria()){ //verifica se com essa jogada teve vencedor
                     jogo.exibirTabuleiro();
-                    System.out.printf("Jogador [%s] venceu!!", jogo.jogadorAtual);
+                    System.out.printf("Jogador [%s] VENCEEUU!!", jogo.jogadorAtual);
+                    gamePlay = false; //jogo não está mais rodando, encerra o while
                 }
-                if (jogo.verificarEmpate()){ //verifica se com essa jogada houve empate
+                else if(jogo.verificarEmpate()){ //verifica se com essa jogada houve empate
                     jogo.exibirTabuleiro();
+                    System.out.println("Jogo deu VELHAAAA!");
+                    gamePlay = false; //jogo não está mais rodando, encerra o while
+                }
+                else{
+                    jogo.alternarJogador(); //se nao tiver dado vitoria e nem empate, troca de Jogador
                 }
             }
         }
+        sc.close();
     }
 
     private void inicializarTabuleiro(){ //nao é estatico porque nao será chamada no main
