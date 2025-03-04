@@ -24,7 +24,7 @@ public class ProductDao {
         String sql = "INSERT INTO produto (name, price, quantity) VALUES (?,?,?)"; 
 
         try (Connection conn = connect();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) { //fez um try with resources
 
             stmt.setString(1, product.getName());
             stmt.setDouble(2, product.getPrice());
@@ -46,7 +46,7 @@ public class ProductDao {
 
         try (Connection conn = connect(); //faz a conexão
             PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet result = stmt.executeQuery()){
+            ResultSet result = stmt.executeQuery()){ //fez um try with resources
 
             while(result.next()) {
                 Produto product = new Produto(
@@ -67,7 +67,7 @@ public class ProductDao {
     public void atualizarProduto(Produto produto) throws CommunicationsException{
         String sql = "UPDATE produto SET name = ?, price = ?, quantity = ? WHERE id = ?";
         try (Connection conn = connect();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) { //fez um try with resources
 
             stmt.setString(1,produto.getName() ); // A ordem do index refere-se ao ? na sql
             stmt.setDouble(2, produto.getPrice());
@@ -91,7 +91,7 @@ public class ProductDao {
         String sql = "DELETE FROM produto WHERE id = ?";
 
         try (Connection conn = connect();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
+            PreparedStatement stmt = conn.prepareStatement(sql)){ //fez um try with resources
 
             stmt.setInt(1, id);
 
