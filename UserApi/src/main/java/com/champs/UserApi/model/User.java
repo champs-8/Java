@@ -25,11 +25,15 @@ public class User {
         this.name = name;
         this.email = email;
         this.phone = phone;
-    }    
+    }
+    //construtor vazio
+    public User() {
+        
+    }
 
     //getters e setters
 
-    public Long getId() { 
+    public Long getId() {
         return id;
     }
     public void setId(Long id){
