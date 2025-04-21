@@ -3,9 +3,7 @@ package com.champs.sprinboot2_essentials.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.champs.sprinboot2_essentials.exception.BadRequestException;
 import com.champs.sprinboot2_essentials.mapper.TeamMapper;
@@ -14,6 +12,8 @@ import com.champs.sprinboot2_essentials.repository.TeamRepository;
 import com.champs.sprinboot2_essentials.request.TeamPostRequestBody;
 import com.champs.sprinboot2_essentials.request.TeamPutRequestBody;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class TeamService {
@@ -21,6 +21,8 @@ public class TeamService {
     @Autowired
     private TeamRepository teamRepository;
 
+    @Transactional(rollbackOn = Exception.class ) //transação, se der erro, não salva no banco
+    //(rollbackOn = Exception.class ) //faz com que qualquer excessão gere rollbacks
     //servico para criar o objeto
     public Team save(TeamPostRequestBody teamPostRequestBory) {
         return teamRepository.save(TeamMapper.INSTANCE.toTeam(teamPostRequestBory));
@@ -46,7 +48,7 @@ public class TeamService {
     }
 
     public Team findByIdOrThrowBadRequestException(Long id) {
-        return teamRepository.findById(id) 
+        return teamRepository.findById(id)
             .orElseThrow(() -> new BadRequestException("Team not found"));
             //excessão personalizada
     }
