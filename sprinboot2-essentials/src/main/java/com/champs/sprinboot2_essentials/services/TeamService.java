@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.champs.sprinboot2_essentials.exception.BadRequestException;
 import com.champs.sprinboot2_essentials.mapper.TeamMapper;
 import com.champs.sprinboot2_essentials.model.Team;
 import com.champs.sprinboot2_essentials.repository.TeamRepository;
@@ -25,8 +26,11 @@ public class TeamService {
         return teamRepository.save(TeamMapper.INSTANCE.toTeam(teamPostRequestBory));
     }
 
-    public List<Team> lista() {
+    public List<Team> listaAll() {
         return teamRepository.findAll(); //buscar por todos os objetos
+    }
+    public List<Team> findByName(String name) {
+        return teamRepository.findByName(name); //buscar por nome
     }
 
     public Team findById(Long id) {
@@ -42,11 +46,9 @@ public class TeamService {
     }
 
     public Team findByIdOrThrowBadRequestException(Long id) {
-        return teamRepository.findById(id)
-            .orElseThrow(() -> new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "Team not found"
-            ));
+        return teamRepository.findById(id) 
+            .orElseThrow(() -> new BadRequestException("Team not found"));
+            //excessão personalizada
     }
 
     public void delete(Long id) {

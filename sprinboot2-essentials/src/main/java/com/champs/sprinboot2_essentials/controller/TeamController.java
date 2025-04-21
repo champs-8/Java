@@ -31,9 +31,15 @@ public class TeamController {
         return ResponseEntity.ok(teamService.findById(id));
     }
 
+    @GetMapping("/find/{name}") //endpoint quando entrar na rota teams/{name}
+    //Buscar por nome
+    public ResponseEntity<List<Team>> findByName(@PathVariable String name) {
+        return ResponseEntity.ok(teamService.findByName(name));
+    }
+
     @GetMapping //endpoint quando entrar na rota teams para buscar todos os objetos
     public List<Team> lista() {
-        return teamService.lista();
+        return teamService.listaAll();
     }
 
     @PostMapping //endpoint para criar um novo objeto
