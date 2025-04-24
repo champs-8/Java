@@ -1,24 +1,19 @@
 package com.champs.sprinboot2_essentials.request;
 
+import org.hibernate.validator.constraints.URL;
+
+import jakarta.validation.constraints.NotEmpty;
+
+import lombok.Data;
+
+@Data
 public class TeamPostRequestBody {
+    @NotEmpty(message = "The team name not cannot be empty") //não pode ser vazio
+    //not empty ja verifica o nulo
+    // @NotNull(message = "The team name not cannot be null") //não pode ser nulo
     private String name;
     private Long id;
-
-    // Getters e Setters
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @URL(message = "The url is not valid") //verifica se é uma url válida
+    private String url;
 }
 
