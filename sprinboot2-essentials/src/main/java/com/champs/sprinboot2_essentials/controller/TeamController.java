@@ -18,6 +18,7 @@ import com.champs.sprinboot2_essentials.request.TeamPostRequestBody;
 import com.champs.sprinboot2_essentials.request.TeamPutRequestBody;
 import com.champs.sprinboot2_essentials.services.TeamService;
 
+import jakarta.validation.Valid;
 import lombok.Data;
 
 @Data
@@ -43,7 +44,8 @@ public class TeamController {
     }
 
     @PostMapping //endpoint para criar um novo objeto
-    public ResponseEntity<Team> save(@RequestBody TeamPostRequestBody teamPostRequestBody) {
+    public ResponseEntity<Team> save(@RequestBody @Valid TeamPostRequestBody teamPostRequestBody) {
+        //@valid faz a validação dos atributos do objeto
         return new ResponseEntity<>(
             teamService.save(teamPostRequestBody), HttpStatus.CREATED);
     }

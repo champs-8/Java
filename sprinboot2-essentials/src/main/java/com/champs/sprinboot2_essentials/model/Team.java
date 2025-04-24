@@ -1,40 +1,23 @@
 package com.champs.sprinboot2_essentials.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Team {
 
     @Id //chave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY) //incremental id
 
     private long id;
+
+    //@Column(nullable = false, unique = true) //não pode ser nulo e não pode ter o mesmo nome
     private String name;
-
-    //constructor
-    public Team(String name) {
-        this.name = name;
-    }
-
-    //constructor vazio
-    public Team() {
-    }
-
-    //getters e setters
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
