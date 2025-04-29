@@ -14,7 +14,12 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
   sql:
     init:
       platform: mysql
+
+# Servirá para mostrar o script SQL que está sendo executado
+logging:
+  level:
+    "[org.hibernate.SQL]": debug
+      
