@@ -2,6 +2,8 @@ package com.champs.sprinboot2_essentials.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,8 +41,9 @@ public class TeamController {
     }
 
     @GetMapping //endpoint quando entrar na rota teams para buscar todos os objetos
-    public List<Team> lista() {
-        return teamService.listaAll();
+    public ResponseEntity<Page<Team>> lista(Pageable pageable) {
+        return ResponseEntity.ok(teamService.listaAll(pageable));
+        //pageble é um objeto que contém informações de paginação
     }
 
     @PostMapping //endpoint para criar um novo objeto
