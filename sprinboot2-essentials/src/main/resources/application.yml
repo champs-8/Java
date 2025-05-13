@@ -22,4 +22,5 @@ spring:
 logging:
   level:
     "[org.hibernate.SQL]": debug
-      
+  pattern:
+    console: "%d{HH:mm:ss} %-5level - %msg%n"

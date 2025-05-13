@@ -22,9 +22,11 @@ import com.champs.sprinboot2_essentials.services.TeamService;
 
 import jakarta.validation.Valid;
 import lombok.Data;
+import lombok.extern.log4j.Log4j2;
 
 @Data
 @RestController
+@Log4j2
 @RequestMapping("/teams")
 public class TeamController {
     private final TeamService teamService;
@@ -44,6 +46,12 @@ public class TeamController {
     public ResponseEntity<Page<Team>> lista(Pageable pageable) {
         return ResponseEntity.ok(teamService.listaAll(pageable));
         //pageble é um objeto que contém informações de paginação
+    }
+
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<Team>> listAll() {
+        return ResponseEntity.ok(teamService.listaAllNonPageable());
+        //Não recebe parâmetros de paginação
     }
 
     @PostMapping //endpoint para criar um novo objeto

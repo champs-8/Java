@@ -30,6 +30,10 @@ public class TeamService {
         return teamRepository.save(TeamMapper.INSTANCE.toTeam(teamPostRequestBory));
     }
 
+    public List<Team> listaAllNonPageable() {
+        return teamRepository.findAll(); //buscar por todos os objetos
+    }
+    
     public Page<Team> listaAll(Pageable pageable) {
         return teamRepository.findAll(pageable); //buscar por todos os objetos
     }
@@ -58,4 +62,5 @@ public class TeamService {
     public void delete(Long id) {
         teamRepository.delete(findById(id));
     }
+
 }
