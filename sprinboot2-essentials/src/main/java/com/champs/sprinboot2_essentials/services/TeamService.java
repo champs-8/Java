@@ -3,6 +3,8 @@ package com.champs.sprinboot2_essentials.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.champs.sprinboot2_essentials.exception.BadRequestException;
@@ -28,8 +30,12 @@ public class TeamService {
         return teamRepository.save(TeamMapper.INSTANCE.toTeam(teamPostRequestBory));
     }
 
-    public List<Team> listaAll() {
+    public List<Team> listaAllNonPageable() {
         return teamRepository.findAll(); //buscar por todos os objetos
+    }
+    
+    public Page<Team> listaAll(Pageable pageable) {
+        return teamRepository.findAll(pageable); //buscar por todos os objetos
     }
     public List<Team> findByName(String name) {
         return teamRepository.findByName(name); //buscar por nome
@@ -56,4 +62,5 @@ public class TeamService {
     public void delete(Long id) {
         teamRepository.delete(findById(id));
     }
+
 }
