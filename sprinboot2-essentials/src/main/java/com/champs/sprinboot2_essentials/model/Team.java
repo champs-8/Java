@@ -20,4 +20,9 @@ public class Team {
 
     //@Column(nullable = false, unique = true) //não pode ser nulo e não pode ter o mesmo nome
     private String name;
+
+    public Team getBody() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getBody'");
+    }
 }

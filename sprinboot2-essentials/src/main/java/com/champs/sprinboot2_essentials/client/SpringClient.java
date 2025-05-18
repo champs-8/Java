@@ -1,12 +1,12 @@
 package com.champs.sprinboot2_essentials.client;
 
-import java.net.http.HttpHeaders;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -35,21 +35,34 @@ public class SpringClient {
         Team[] times = new RestTemplate().getForObject("http://localhost:8080/teams/all",
         Team[].class, 5);
         log.info(Arrays.toString(times));
-
+        
         
         ResponseEntity<List<Team>> exchange =  new RestTemplate().exchange("http://localhost:8080/teams/all",
         HttpMethod.GET, null, new ParameterizedTypeReference<List<Team>>(){});
         log.info(exchange.getBody());
-
+        
         // post
         Team barcelona = Team.builder().name("Barcelona").build();
         Team barcelonaSaved = new RestTemplate().postForObject("http://localhost:8080/teams/", barcelona, Team.class);
         log.info("Saved team: {}", barcelonaSaved);
-
         
+        // put
+        Team teamSaved = barcelonaSaved.getBody();
+        teamSaved.setName("Barcelona FC");
+
+        ResponseEntity<Void> barcelonaUpdate = new RestTemplate().exchange("http://localhost:8080/teams/",HttpMethod.PUT, new HttpEntity<>(teamSaved, createJsonHeader()), Void.class);
+        log.info("Updated team: {}", barcelonaUpdate);
+
+        //POST
         Team milan = Team.builder().name("milan").build();
         ResponseEntity<Team> milanSaved = new RestTemplate().exchange("http://localhost:8080/teams/", HttpMethod.POST, new HttpEntity<>(milan, createJsonHeader()), Team.class);
         log.info("Saved team: {}", milanSaved);
+
+
+        //DELETE
+        // Team milan = Team.builder().name("milan").build();
+        // ResponseEntity<Team> milanSaved = new RestTemplate().exchange("http://localhost:8080/teams/", HttpMethod.POST, new HttpEntity<>(milan, createJsonHeader()), Team.class);
+        // log.info("Saved team: {}", milanSaved);
     }
 
     private static HttpHeaders createJsonHeader(){
